@@ -46,6 +46,7 @@ func redisConnFromURI(uriString string) (*RedisConn, error) {
 	var password string
 	var db string
 	var dialOptions []redis.DialOption
+	dialOptions = append(dialOptions, redis.DialClientName("goworker"))
 
 	switch uri.Scheme {
 	case "redis", "rediss":
@@ -58,7 +59,6 @@ func redisConnFromURI(uriString string) (*RedisConn, error) {
 			db = uri.Path[1:]
 		}
 		if uri.Scheme == "rediss" {
-			dialOptions = append(dialOptions, redis.DialClientName("goworker"))
 			dialOptions = append(dialOptions, redis.DialUseTLS(true))
 			dialOptions = append(dialOptions, redis.DialTLSSkipVerify(workerSettings.SkipTLSVerify))
 			if len(workerSettings.TLSCertPath) > 0 {
