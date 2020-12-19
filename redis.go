@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/gomodule/redigo/redis"
-	"vitess.io/vitess/go/pools"
+	pools "github.com/yshurik/gopools"
 )
 
 var (
